@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Chatbot FastAPI - Keyword Case</title>
+  <style>
+    body { font-family: Arial, Helvetica, sans-serif; margin: 0; padding: 0; background:#f4f6f8;}
+    .wrap { max-width:800px; margin:40px auto; background:white; border-radius:8px; box-shadow:0 6px 20px rgba(0,0,0,0.08); padding:20px;}
+    .chat { height:400px; overflow:auto; border:1px solid #e1e4e8; padding:12px; border-radius:6px; background:#fff; }
+    .msg { margin:8px 0; }
+    .user { text-align:right; }
+    .bot { text-align:left; }
+    .bubble { display:inline-block; padding:8px 12px; border-radius:12px; max-width:80%; }
+    .bubble.user { background:#2b8df2; color:white; }
+    .bubble.bot { background:#f1f3f5; color:#111; }
+    .controls { margin-top:12px; display:flex; gap:8px; }
+    textarea { flex:1; min-height:48px; resize:none; padding:8px; border-radius:6px; border:1px solid #ccc; }
+    button { padding:10px 16px; border:0; border-radius:6px; background:#2b8df2; color:white; cursor:pointer; }
+    small { color:#666; }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <h2>Chatbot (FastAPI) — trả lời theo keyword/case</h2>
+    <div class="chat" id="chatBox"></div>
+
+    <div class="controls">
+      <textarea id="msg" placeholder="Nhập tin nhắn... (ví dụ: 'chào', 'kiểm tra license', '2025-09-13')"></textarea>
+      <button id="sendBtn">Gửi</button>
+    </div>
+    <p><small>Ví dụ keyword: "chào", "kiểm tra license", "kiểm tra", "làm sao". Bạn có thể mở rộng CASES trong file main.py.</small></p>
+  </div>
+
+  <script>
+    const chatBox = document.getElementById('chatBox');
+    const msgBox = document.getElementById('msg');
+    const btn = document.getElementById('sendBtn');
+
+    function appendMessage(text, who='bot') {
+      const wrap = document.createElement('div');
+      wrap.className = 'msg ' + (who === 'user' ? 'user' : 'bot');
+      const bubble = document.createElement('div');
+      bubble.className = 'bubble ' + (who === 'user' ? 'user' : 'bot');
+      bubble.textContent = text;
+      wrap.appendChild(bubble);
+      chatBox.appendChild(wrap);
+      chatBox.scrollTop = chatBox.scrollHeight;
+    }
+
+    async function sendMessage() {
+      const text = msgBox.value.trim();
+      if (!text) return;
+      appendMessage(text, 'user');
+      msgBox.value = '';
+      try {
+        const res = await fetch('/chat', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ message: text })
+        });
+        const data = await res.json();
+        if (data.reply) appendMessage(data.reply, 'bot');
+        else appendMessage('Lỗi server hoặc không có phản hồi.', 'bot');
+      } catch (e) {
+        appendMessage('Không thể kết nối tới server.', 'bot');
+      }
+    }
+
+    btn.addEventListener('click', sendMessage);
+    msgBox.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); sendMessage(); }
+    });
+
+    // welcome
+    appendMessage('Chào! Gõ "chào" để bắt đầu.', 'bot');
+  </script>
+</body>
+</html>
+    

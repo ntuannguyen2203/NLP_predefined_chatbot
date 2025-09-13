@@ -1,0 +1,91 @@
+body {
+  font-family: Arial, Helvetica, sans-serif;
+  margin: 0;
+  padding: 0;
+  background: #f4f6f8;
+}
+
+.wrap {
+  max-width: 800px;
+  margin: 40px auto;
+  background: white;
+  border-radius: 8px;
+  box-shadow: 0 6px 20px rgba(0,0,0,0.08);
+  padding: 20px;
+}
+
+h2 {
+  margin-top: 0;
+}
+
+.chat {
+  height: 400px;
+  overflow-y: auto;
+  border: 1px solid #e1e4e8;
+  padding: 12px;
+  border-radius: 6px;
+  background: #fff;
+}
+
+.msg {
+  margin: 8px 0;
+}
+
+.user {
+  text-align: right;
+}
+
+.bot {
+  text-align: left;
+}
+
+.bubble {
+  display: inline-block;
+  padding: 8px 12px;
+  border-radius: 12px;
+  max-width: 80%;
+}
+
+.bubble.user {
+  background: #2b8df2;
+  color: white;
+}
+
+.bubble.bot {
+  background: #f1f3f5;
+  color: #111;
+}
+
+.controls {
+  margin-top: 12px;
+  display: flex;
+  gap: 8px;
+}
+
+textarea {
+  flex: 1;
+  min-height: 48px;
+  resize: none;
+  padding: 8px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  font-family: inherit;
+}
+
+button {
+  padding: 10px 16px;
+  border: 0;
+  border-radius: 6px;
+  background: #2b8df2;
+  color: white;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+button:hover {
+  background: #1c6ed5;
+}
+
+small {
+  color: #666;
+}
