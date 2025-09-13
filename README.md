@@ -1,3 +1,5 @@
+# Nguyễn Tuấn Nguyễn - 2591316
+# Nguyễn Đức Tín     - 2591323
 # ☕ CoffeeShop Chatbot (FastAPI + Keyword Cases)
 
 Chatbot mẫu viết bằng **FastAPI** với logic trả lời dựa trên **keyword/case**.  

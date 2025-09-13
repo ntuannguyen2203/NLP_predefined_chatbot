@@ -34,7 +34,7 @@ CASES = [
     {
         "type": "contains",
         "keywords": ["địa chỉ", "ở đâu", "location"],
-        "response": "CoffeeShop ở số 123 Nguyễn Văn A, Quận 1, TP.HCM."
+        "response": "CoffeeShop ở số 1 Võ Văn Ngân, Quận Thủ Đức, TP.HCM."
     },
     # 5. Wifi
     {
